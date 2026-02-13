@@ -1,0 +1,33 @@
+@import './fonts.css';
+
+:root {
+	/* colors */
+	--base-blue: #4a3aff;
+	--base-blue-bg: #f3f1ff;
+	--neutral-800: #170f49;
+	--neutral-700: #514f6e;
+	--neutral-600: #6f6c90;
+	--neutral-500: #a0a3bd;
+	--neutral-400: #d9dbe9;
+	--neutral-300: #eff0f6;
+	--neutral-200: #f7f7fb;
+	--neutral-100: #fff;
+	--semantic-success: #5bc729;
+	--semantic-success-bg: #effbe9;
+	--semantic-danger: #fd2727;
+	--semantic-danger-bg: #fdf2f2;
+	--semantic-warning: #ff9538;
+	--semantic-warning-bg: #fadec5;
+
+	/* font */
+	--font-family: 'DMSans';
+}
+
+@layer base {
+	body {
+		font-family: var(--font-family), sans-serif;
+		font-size: 16px;
+		color: var(--neutral-600);
+		background-color: var(--neutral-400);
+	}
+}
