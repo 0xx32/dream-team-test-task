@@ -25,6 +25,7 @@ const { size = 'L', variant = 'primary' } = defineProps<Props>()
 
 		&:hover {
 			background-color: #2a1cca;
+			transition: background-color 0.3s ease;
 		}
 
 		&:active {
@@ -39,6 +40,11 @@ const { size = 'L', variant = 'primary' } = defineProps<Props>()
 	&.secondary {
 		border: 1px solid var(--base-blue);
 		color: var(--base-blue);
+
+		&:hover{
+			background-color: var(--base-blue-bg);
+			transition: background-color 0.3s ease;
+		}
 	}
 
 	&.size-L {
