@@ -49,7 +49,7 @@ const { size = 'L', variant = 'primary' } = defineProps<Props>()
 
 	&.size-L {
 		padding: 14px 16px;
-		line-height: 1.75;
+		line-height: 1.625;
 		font-size: 1rem;
 	}
 
