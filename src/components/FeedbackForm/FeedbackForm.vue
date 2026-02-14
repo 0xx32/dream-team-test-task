@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import type { MaskaDetail } from 'maska'
-
 import { vMaska } from 'maska/vue'
 
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import {
@@ -13,36 +12,27 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
-import { StarRating } from '@/components/ui/star-rating'
 import { Textarea } from '@/components/ui/textarea'
 import { Typography } from '@/components/ui/typography'
 
+import { FeedbackRating } from '../FeedbackRating'
 import { useFeedbackForm } from './useFeedbackForm'
 
 const feedbackForm = useFeedbackForm()
-const { setFieldValue, handleSubmit, register, errors, resetFieldError } = feedbackForm.form
-
-const setPhoneValue = ({ detail }: { detail: MaskaDetail }) => {
-	resetFieldError('phone')
-	setFieldValue('phone', detail.unmasked)
-}
-
-const onSubmit = handleSubmit((values) => {
-	// eslint-disable-next-line no-console
-	console.log('@submit', values)
-})
+const { onSubmit, setPhoneValue, setRating } = feedbackForm.functions
+const { register, errors } = feedbackForm.form
 </script>
 
 <template>
-	<div class="wrapper">
+	<Card class="wrapper">
 		<form @submit="onSubmit">
 			<Typography class="form__title" tag="h2" variant="h2"> Форма обратной связи </Typography>
 
+			<Typography class="form_subtitle" weight="regular" tag="p" variant="small">
+				Пожалуйста, оцените свой опыт прохождения тестового
+			</Typography>
 			<div class="rating">
-				<Typography class="rating__title" weight="regular" tag="p" variant="small">
-					Пожалуйста, оцените свой опыт прохождения тестового
-				</Typography>
-				<StarRating :size="35" class="rating_stars" />
+				<FeedbackRating @update:rating="setRating" />
 			</div>
 
 			<div class="form__fields-container">
@@ -107,34 +97,27 @@ const onSubmit = handleSubmit((values) => {
 				<Button type="submit" class="form__actions__button"> Отправить </Button>
 			</div>
 		</form>
-	</div>
+	</Card>
 </template>
 
 <style scoped lang="scss">
 .wrapper {
-	padding: 2.75rem;
-	border-radius: 2rem;
-	max-width: 39.875rem;
-
-	background-color: var(--neutral-100);
+	width: 100%;
+	max-width: 39.813rem;
 }
-
 .form__title {
 	margin-bottom: 8px;
 	text-align: center;
 }
-.rating {
-	margin-bottom: 2.25rem;
-}
-.rating__title {
+.form_subtitle {
 	margin-bottom: 1.25rem;
 	text-align: center;
 	color: #4b5563;
 }
-.rating_stars {
-	display: flex;
-	justify-content: center;
+.rating {
+	margin-bottom: 2.25rem;
 }
+
 .form__fields-container {
 	display: grid;
 	grid-template-columns: 260px 260px;

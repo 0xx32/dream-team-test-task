@@ -1,3 +1,8 @@
+import type { Rating } from '../FeedbackRating'
+import type { MaskaDetail } from 'maska'
+
+import { ref } from 'vue'
+
 import { useForm } from '@/composables/useForm'
 import { isEmail } from '@/utils/helpers/isEmail'
 
@@ -45,7 +50,28 @@ export const useFeedbackForm = () => {
 		},
 	})
 
+	const onSubmit = form.handleSubmit((values) => {
+		// eslint-disable-next-line no-console
+		console.log('@submit', values)
+	})
+
+	const setPhoneValue = ({ detail }: { detail: MaskaDetail }) => {
+		form.resetFieldError('phone')
+		form.setFieldValue('phone', detail.unmasked)
+	}
+
+	const rating = ref<Rating>({ value: 0, variants: [] })
+
+	const setRating = (newRating: Rating) => {
+		rating.value = newRating
+	}
+
 	return {
 		form,
+		functions: {
+			onSubmit,
+			setPhoneValue,
+			setRating,
+		},
 	}
 }
