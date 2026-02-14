@@ -23,4 +23,7 @@ const model = defineModel({
 		color: var(--neutral-500);
 	}
 }
+[data-invalid].ui-input {
+	outline: 1px solid var(--semantic-danger);
+}
 </style>
