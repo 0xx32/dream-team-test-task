@@ -18,9 +18,30 @@ import { Typography } from '@/components/ui/typography'
 import { FeedbackRating } from '../FeedbackRating'
 import { useFeedbackForm } from './useFeedbackForm'
 
+const emits = defineEmits<{
+	(event: 'close'): void
+	(event: 'submitForm'): void
+	(event: 'tryAgain'): void
+}>()
+
 const feedbackForm = useFeedbackForm()
-const { onSubmit, setPhoneValue, setRating } = feedbackForm.functions
-const { register, errors } = feedbackForm.form
+const { setPhoneValue, setRating } = feedbackForm.functions
+const { register, errors, handleSubmit } = feedbackForm.form
+
+const onSubmit = handleSubmit((values) => {
+	// eslint-disable-next-line no-console
+	console.log('@submit', values)
+
+	//Симуляция ошибки при отправке формы например на сервер
+	//Так как по заданию нужно при валидации показывать экран ошибки
+	//Не удобный UX получается
+	const random = Math.floor(Math.random() * 6)
+	if (random > 3) {
+		emits('submitForm')
+	} else {
+		emits('tryAgain')
+	}
+})
 </script>
 
 <template>
@@ -93,7 +114,14 @@ const { register, errors } = feedbackForm.form
 			</div>
 
 			<div class="form__actions">
-				<Button variant="secondary" type="button" class="form__actions__button"> Отменить </Button>
+				<Button
+					variant="secondary"
+					type="button"
+					class="form__actions__button"
+					@click="emits('close')"
+				>
+					Отменить
+				</Button>
 				<Button type="submit" class="form__actions__button"> Отправить </Button>
 			</div>
 		</form>

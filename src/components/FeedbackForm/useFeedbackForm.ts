@@ -50,11 +50,6 @@ export const useFeedbackForm = () => {
 		},
 	})
 
-	const onSubmit = form.handleSubmit((values) => {
-		// eslint-disable-next-line no-console
-		console.log('@submit', values)
-	})
-
 	const setPhoneValue = ({ detail }: { detail: MaskaDetail }) => {
 		form.resetFieldError('phone')
 		form.setFieldValue('phone', detail.unmasked)
@@ -69,7 +64,6 @@ export const useFeedbackForm = () => {
 	return {
 		form,
 		functions: {
-			onSubmit,
 			setPhoneValue,
 			setRating,
 		},

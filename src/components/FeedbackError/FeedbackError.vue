@@ -2,6 +2,11 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
+
+const emits = defineEmits<{
+	(event: 'close'): void
+	(event: 'tryAgain'): void
+}>()
 </script>
 
 <template>
@@ -20,8 +25,8 @@ import { Typography } from '@/components/ui/typography'
 		</div>
 
 		<div class="button-container">
-			<Button class="button-action" variant="secondary"> Закрыть </Button>
-			<Button class="button-action"> Попробовать снова </Button>
+			<Button class="button-action" variant="secondary" @click="emits('close')"> Закрыть </Button>
+			<Button class="button-action" @click="emits('tryAgain')"> Попробовать снова </Button>
 		</div>
 	</Card>
 </template>

@@ -2,6 +2,10 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
+
+const emits = defineEmits<{
+	(event: 'onClick'): void
+}>()
 </script>
 
 <template>
@@ -20,7 +24,7 @@ import { Typography } from '@/components/ui/typography'
 		</div>
 
 		<div class="button-container">
-			<Button class="button-action"> На главную </Button>
+			<Button class="button-action" @click="emits('onClick')"> На главную </Button>
 		</div>
 	</Card>
 </template>
