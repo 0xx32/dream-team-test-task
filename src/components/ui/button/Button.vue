@@ -41,7 +41,7 @@ const { size = 'L', variant = 'primary' } = defineProps<Props>()
 		border: 1px solid var(--base-blue);
 		color: var(--base-blue);
 
-		&:hover{
+		&:hover {
 			background-color: var(--base-blue-bg);
 			transition: background-color 0.3s ease;
 		}
