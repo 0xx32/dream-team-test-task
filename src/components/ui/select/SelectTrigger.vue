@@ -63,4 +63,7 @@ onMounted(() => {
 		transform: translateY(-50%) rotate(180deg);
 	}
 }
+[data-field-invalid] .ui-select-trigger {
+	outline: 1px solid var(--semantic-danger);
+}
 </style>
