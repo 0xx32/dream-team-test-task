@@ -1,15 +1,41 @@
 <script setup lang="ts">
+import type { MaskaDetail } from 'maska'
+
+import { vMaska } from 'maska/vue'
+
 import { Button } from '@/components/ui/button'
-import { Field, FieldLabel } from '@/components/ui/field'
+import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import {
+	Select,
+	SelectContent,
+	SelectOption,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select'
 import { StarRating } from '@/components/ui/star-rating'
 import { Textarea } from '@/components/ui/textarea'
 import { Typography } from '@/components/ui/typography'
+
+import { useFeedbackForm } from './useFeedbackForm'
+
+const feedbackForm = useFeedbackForm()
+const { setFieldValue, handleSubmit, register, errors, resetFieldError } = feedbackForm.form
+
+const setPhoneValue = ({ detail }: { detail: MaskaDetail }) => {
+	resetFieldError('phone')
+	setFieldValue('phone', detail.unmasked)
+}
+
+const onSubmit = handleSubmit((values) => {
+	// eslint-disable-next-line no-console
+	console.log('@submit', values)
+})
 </script>
 
 <template>
 	<div class="wrapper">
-		<form>
+		<form @submit="onSubmit">
 			<Typography class="form__title" tag="h2" variant="h2"> Форма обратной связи </Typography>
 
 			<div class="rating">
@@ -20,26 +46,59 @@ import { Typography } from '@/components/ui/typography'
 			</div>
 
 			<div class="form__fields-container">
-				<Field class="form__field">
+				<Field class="form__field" :data-field-invalid="!!errors.fio || null">
 					<FieldLabel>ФИО</FieldLabel>
-					<Input placeholder="Иван Иванов" />
+					<Input v-bind="register('fio')" placeholder="Иван Иванов" />
+					<FieldError v-if="errors.fio">
+						{{ errors.fio }}
+					</FieldError>
 				</Field>
-				<Field class="form__field">
+				<Field class="form__field" :data-field-invalid="!!errors.email || null">
 					<FieldLabel>Почта</FieldLabel>
-					<Input placeholder="ivan@mail.com" />
+					<Input v-bind="register('email')" placeholder="ivan@mail.com" type="email" />
+					<FieldError v-if="errors.email">
+						{{ errors.email }}
+					</FieldError>
 				</Field>
-				<Field class="form__field">
+				<Field class="form__field" :data-field-invalid="!!errors.phone || null">
 					<FieldLabel>Номер телефона</FieldLabel>
-					<Input placeholder="+7 (000) 000 00 00" />
+					<Input
+						v-maska="'+7 (###) ###-##-##'"
+						placeholder="+7 (000) 000 00 00"
+						@maska="setPhoneValue"
+					/>
+					<FieldError v-if="errors.phone">
+						{{ errors.phone }}
+					</FieldError>
 				</Field>
-				<Field class="form__field">
+				<Field class="form__field" :data-field-invalid="!!errors.grade || null">
 					<FieldLabel>Грейд</FieldLabel>
-					<Input placeholder="Выберите" />
+					<Select v-bind="register('grade')">
+						<SelectTrigger class="trigger">
+							<SelectValue placeholder="Выберите" />
+						</SelectTrigger>
+
+						<SelectContent class="select-content">
+							<SelectOption value="junior"> Junior </SelectOption>
+							<SelectOption value="middle"> Middle </SelectOption>
+							<SelectOption value="senior"> Senior </SelectOption>
+							<SelectOption value="teamlead"> Team lead </SelectOption>
+						</SelectContent>
+					</Select>
+					<FieldError v-if="errors.grade">
+						{{ errors.grade }}
+					</FieldError>
 				</Field>
 
-				<Field class="additional-info-field">
+				<Field class="additional-info-field" :data-field-invalid="!!errors.additionalInfo || null">
 					<FieldLabel>Дополнительная информация</FieldLabel>
-					<Textarea placeholder="Что понравилось и не понравилось" />
+					<Textarea
+						v-bind="register('additionalInfo')"
+						placeholder="Что понравилось и не понравилось"
+					/>
+					<FieldError v-if="errors.additionalInfo">
+						{{ errors.additionalInfo }}
+					</FieldError>
 				</Field>
 			</div>
 
