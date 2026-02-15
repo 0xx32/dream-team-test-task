@@ -41,4 +41,12 @@ const handleClick = () => {
 .ui-select-option:hover {
 	background: var(--neutral-300);
 }
+
+@media (max-width: 568px) {
+	.ui-select-option {
+		padding: 12px 16px;
+		font-size: 0.875rem;
+		line-height: 1.5;
+	}
+}
 </style>

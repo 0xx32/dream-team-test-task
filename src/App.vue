@@ -4,12 +4,11 @@ import { ref } from 'vue'
 import { FeedbackError } from '@/components/FeedbackError'
 import FeedbackForm from '@/components/FeedbackForm/FeedbackForm.vue'
 import { FeedbackSuccess } from '@/components/FeedbackSuccess'
-import { Button } from '@/components/ui/button'
 
 type State = 'error' | 'form' | 'success'
-const state = ref<State | undefined>()
+const state = ref<State>('form')
 
-const setState = (newState: State | undefined) => {
+const setState = (newState: State) => {
 	state.value = newState
 }
 
@@ -20,7 +19,7 @@ const submitForm = () => {
 	state.value = 'success'
 }
 const onClose = () => {
-	state.value = undefined
+	state.value = 'form'
 }
 
 //По макету форма вроде бы находится внутри диалогового окна но
@@ -38,7 +37,6 @@ const onClose = () => {
 		/>
 		<FeedbackSuccess v-else-if="state === 'success'" @on-click="openForm" />
 		<FeedbackError v-else-if="state === 'error'" @close="onClose" @try-again="openForm" />
-		<Button v-else @click="openForm"> Оставить фидбек </Button>
 	</div>
 </template>
 
@@ -46,7 +44,12 @@ const onClose = () => {
 .container {
 	display: flex;
 	justify-content: center;
-	padding-top: 68px;
-	padding-bottom: 68px;
+	padding: 68px 12px;
+}
+
+@media (max-width: 568px) {
+	.container {
+		padding: 32px 12px 47px 12px;
+	}
 }
 </style>

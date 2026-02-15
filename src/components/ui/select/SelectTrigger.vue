@@ -66,4 +66,12 @@ onMounted(() => {
 [data-field-invalid] .ui-select-trigger {
 	outline: 1px solid var(--semantic-danger);
 }
+
+@media (max-width: 568px) {
+	.ui-select-trigger {
+		padding: 12px 16px;
+		font-size: 0.875rem;
+		line-height: 1.5;
+	}
+}
 </style>

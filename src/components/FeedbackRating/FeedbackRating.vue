@@ -60,7 +60,7 @@ watchEffect(() => {
 
 <template>
 	<div>
-		<StarRating v-model="estimation" :size="35" class="rating-stars" />
+		<StarRating v-model="estimation" class="rating-stars" star-class="rating-stars__star" />
 
 		<div v-if="!!estimation" class="rating-container">
 			<button
@@ -81,6 +81,12 @@ watchEffect(() => {
 .rating-stars {
 	display: flex;
 	justify-content: center;
+	gap: clamp(0.75rem, 5vw, 1.375rem);
+
+	:deep(.rating-stars__star) {
+		width: clamp(24px, 5vw, 33px);
+		height: clamp(24px, 5vw, 33px);
+	}
 }
 .rating-container {
 	display: flex;

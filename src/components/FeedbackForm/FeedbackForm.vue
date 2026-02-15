@@ -46,7 +46,7 @@ const onSubmit = handleSubmit((values) => {
 
 <template>
 	<Card class="wrapper">
-		<form @submit="onSubmit">
+		<form class="form" @submit="onSubmit">
 			<Typography class="form__title" tag="h2" variant="h2"> Форма обратной связи </Typography>
 
 			<Typography class="form_subtitle" weight="regular" tag="p" variant="small">
@@ -133,44 +133,66 @@ const onSubmit = handleSubmit((values) => {
 	width: 100%;
 	max-width: 39.813rem;
 }
-.form__title {
-	margin-bottom: 8px;
-	text-align: center;
-}
-.form_subtitle {
-	margin-bottom: 1.25rem;
-	text-align: center;
-	color: #4b5563;
-}
-.rating {
-	margin-bottom: 2.25rem;
+.form {
+	.form__title {
+		margin-bottom: 8px;
+		text-align: center;
+		font-size: clamp(1.125rem, 5vw, 2.125rem);
+	}
+	.form_subtitle {
+		font-size: clamp(0.75rem, 3vw, 0.875rem);
+		margin-bottom: 20px;
+		text-align: center;
+		color: #4b5563;
+		white-space: break-spaces;
+	}
+	.rating {
+		margin-bottom: clamp(1rem, 5vw, 2.25rem);
+	}
+
+	.form__fields-container {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(220px, 1fr));
+		grid-template-rows: auto auto auto;
+		gap: clamp(16px, 5vw, 28px);
+		margin-bottom: 34px;
+	}
+	.form__field {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+	.additional-info-field {
+		grid-column: span 2;
+	}
+	.additional-info-field textarea {
+		height: 144px;
+	}
+	.form__actions {
+		display: flex;
+		justify-content: space-between;
+		gap: clamp(20px, 5vw, 28px);
+
+		&__button {
+			flex: 1;
+		}
+	}
 }
 
-.form__fields-container {
-	display: grid;
-	grid-template-columns: 260px 260px;
-	grid-template-rows: auto auto auto;
-	gap: 28px;
-	margin-bottom: 34px;
-}
-.form__field {
-	display: flex;
-	flex-direction: column;
-	gap: 4px;
-}
-.additional-info-field {
-	grid-column: span 2;
-}
-.additional-info-field textarea {
-	height: 144px;
-}
-.form__actions {
-	display: flex;
-	justify-content: space-between;
-	gap: 28px;
-
-	&__button {
-		flex: 1;
+@media (max-width: 568px) {
+	.form {
+		.form__title {
+			margin-bottom: 4px;
+		}
+		.form_subtitle {
+			margin-bottom: 16px;
+		}
+		.form__fields-container {
+			grid-template-columns: 1fr;
+		}
+		.additional-info-field {
+			grid-column: span 1;
+		}
 	}
 }
 </style>

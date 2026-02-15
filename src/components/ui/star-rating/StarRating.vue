@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 interface Props {
 	color?: string
 	maxStars?: number
-	size?: number
 	starClass?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
 	maxStars: 5,
 	color: '#FFE01A',
 	size: 33,
 })
-
-const starBoxSize = computed(() => `${props.size + 9}px`)
 
 const model = defineModel<number>({ default: 0 })
 
@@ -43,9 +40,7 @@ const onMouseLeave = () => {
 			:style="{ '--delay': `${(maxStars - star) * 0.1}s` }"
 		>
 			<svg
-				:width="size"
-				:height="size"
-				:viewBox="`0 0 ${size + 1} ${size + 1}`"
+				viewBox="0 0 35 35"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
 				@click="setRating(star)"
@@ -75,14 +70,19 @@ const onMouseLeave = () => {
 	align-items: center;
 	justify-content: center;
 
-	width: v-bind(starBoxSize);
-	height: v-bind(starBoxSize);
+	width: 33px;
+	height: 33px;
 
 	cursor: pointer;
 	transition: transform 0.2s ease;
 
 	&:hover {
 		transform: scale(1.2);
+	}
+
+	svg {
+		width: 100%;
+		height: 100%;
 	}
 
 	path {

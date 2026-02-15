@@ -59,4 +59,19 @@ const { size = 'L', variant = 'primary' } = defineProps<Props>()
 		line-height: 1.5;
 	}
 }
+
+@media (max-width: 568px) {
+	.ui-button {
+		&.size-L {
+			padding: 12px 16px;
+			font-size: 0.875rem;
+			line-height: 1.5;
+		}
+		&.size-S {
+			padding: 10px 16px;
+			font-size: 0.75rem;
+			line-height: 1.25;
+		}
+	}
+}
 </style>
