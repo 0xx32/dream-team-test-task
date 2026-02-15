@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, useTemplateRef } from 'vue'
 
 import ChevronDownIcon from '@/components/icons/ChevronDownIcon.vue'
 
 import { useSelect } from './useSelect'
 
-const triggerRef = ref<HTMLElement>()
+const triggerRef = useTemplateRef<HTMLElement>('trigger')
 
 const { context } = useSelect()
 
@@ -18,13 +18,13 @@ const handleClick = () => {
 }
 
 onMounted(() => {
-	context.value.setTriggerElement(triggerRef.value)
+	context.value.setTriggerElement(triggerRef.value ?? undefined)
 })
 </script>
 
 <template>
 	<div
-		ref="triggerRef"
+		ref="trigger"
 		class="ui-select-trigger"
 		:class="{
 			active: isOpen,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, useTemplateRef, watch } from 'vue'
 
 import { useSelect } from './useSelect'
 
@@ -7,7 +7,7 @@ defineOptions({
 	inheritAttrs: false,
 })
 
-const contentRef = ref<HTMLElement>()
+const contentRef = useTemplateRef<HTMLElement>('content')
 
 const { context } = useSelect()
 
@@ -19,13 +19,13 @@ const floatingStyles = computed(() => ({
 }))
 
 watch(contentRef, (newEl) => {
-	context.value.setContentElement(newEl)
+	context.value.setContentElement(newEl ?? undefined)
 })
 </script>
 
 <template>
 	<Teleport to="body">
-		<div v-if="context.isOpen.value" ref="contentRef" :style="floatingStyles" class="popper">
+		<div v-if="context.isOpen.value" ref="content" :style="floatingStyles" class="popper">
 			<Transition name="inner-fade" appear>
 				<div class="select-content">
 					<slot />
