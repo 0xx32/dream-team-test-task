@@ -12,22 +12,8 @@ const emits = defineEmits<{
 	(event: 'update:rating', rating: Rating): void
 }>()
 
-const goodQuickAnswers = [
-	'Интересно',
-	'Легко',
-	'Быстро сделал',
-	'Красиво',
-	'Подробно описано',
-	'Все понятно и по делу',
-]
-const badQuickAnswers = [
-	'Не понятно',
-	'Однообразно',
-	'Скучно',
-	'Неудобно',
-	'Ничего не понял',
-	'Слишком сложно для тестового',
-]
+const goodQuickAnswers = ['Интересно', 'Легко', 'Быстро сделал', 'Красиво', 'Подробно описано']
+const badQuickAnswers = ['Не понятно', 'Однообразно', 'Скучно', 'Неудобно', 'Ничего не понял']
 const estimation = ref(0)
 const answerToShow = computed(() => {
 	if (estimation.value === 0) return []
@@ -111,6 +97,18 @@ watchEffect(() => {
 	&.selected {
 		background-color: var(--neutral-600);
 		color: var(--neutral-100);
+	}
+}
+
+@media (max-width: 568px) {
+	.rating-container {
+		gap: 8px;
+		margin-top: 16px;
+	}
+	.rating-button {
+		padding: 8px 12px;
+		line-height: 1.33;
+		font-size: 12px;
 	}
 }
 </style>

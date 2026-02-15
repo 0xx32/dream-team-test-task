@@ -13,10 +13,10 @@ import {
 	SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { Typography } from '@/components/ui/typography'
 
+import { FeedbackFormHeader } from '../FeedbackFormHeader'
 import { FeedbackRating } from '../FeedbackRating'
-import { useFeedbackForm } from './useFeedbackForm'
+import { useFeedbackForm } from '../useFeedbackForm'
 
 const emits = defineEmits<{
 	(event: 'close'): void
@@ -47,14 +47,11 @@ const onSubmit = handleSubmit((values) => {
 <template>
 	<Card class="wrapper">
 		<form class="form" @submit="onSubmit">
-			<Typography class="form__title" tag="h2" variant="h2"> Форма обратной связи </Typography>
-
-			<Typography class="form_subtitle" weight="regular" tag="p" variant="small">
-				Пожалуйста, оцените свой опыт прохождения тестового
-			</Typography>
-			<div class="rating">
-				<FeedbackRating @update:rating="setRating" />
-			</div>
+			<FeedbackFormHeader>
+				<div class="form__rating">
+					<FeedbackRating @update:rating="setRating" />
+				</div>
+			</FeedbackFormHeader>
 
 			<div class="form__fields-container">
 				<Field class="form__field" :data-field-invalid="!!errors.fio || null">
@@ -146,8 +143,8 @@ const onSubmit = handleSubmit((values) => {
 		color: #4b5563;
 		white-space: break-spaces;
 	}
-	.rating {
-		margin-bottom: clamp(1rem, 5vw, 2.25rem);
+	.form__rating {
+		margin-top: 20px;
 	}
 
 	.form__fields-container {

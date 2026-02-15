@@ -33,7 +33,7 @@ const emits = defineEmits<{
 .wrapper {
 	display: flex;
 	flex-direction: column;
-	gap: 95px;
+	gap: clamp(44px, 5vw, 95px);
 	width: 100%;
 	max-width: 39.813rem;
 }
@@ -41,15 +41,19 @@ const emits = defineEmits<{
 .title {
 	margin-bottom: 8px;
 	text-align: center;
+	font-size: clamp(1.125rem, 5vw, 2.125rem);
 }
 .subtitle {
 	text-align: center;
 	color: var(--neutral-800);
+	font-size: clamp(0.75rem, 3vw, 0.875rem);
 }
 .image {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	width: clamp(100px, 20vw, 157px);
+	margin: 0 auto;
 }
 .button-container {
 	display: flex;
@@ -57,5 +61,11 @@ const emits = defineEmits<{
 }
 .button-action {
 	width: 16.25rem;
+}
+
+@media (max-width: 399px) {
+	.button-action {
+		width: 100%;
+	}
 }
 </style>

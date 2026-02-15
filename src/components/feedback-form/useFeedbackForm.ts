@@ -1,4 +1,4 @@
-import type { Rating } from '../FeedbackRating'
+import type { Rating } from './FeedbackRating'
 import type { MaskaDetail } from 'maska'
 
 import { ref } from 'vue'
